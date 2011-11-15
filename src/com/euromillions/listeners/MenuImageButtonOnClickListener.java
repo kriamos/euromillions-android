@@ -69,6 +69,7 @@ public class MenuImageButtonOnClickListener implements OnClickListener {
 		Ticket ticket = new DataGenerate(context).execute(new Integer[]{DataGenerate.GENERATE_FREQUENT_LIST}).get();
 		Intent intent = new Intent(context,TicketActivity.class);
 			intent.putExtra("ticket", ticket);
+			intent.putExtra("selectedAction",DataGenerate.GENERATE_FREQUENT_LIST);
 		context.startActivity(intent);
 	}
 	
@@ -76,7 +77,7 @@ public class MenuImageButtonOnClickListener implements OnClickListener {
 		Ticket ticket = new DataGenerate(context).execute(new Integer[]{DataGenerate.GENERATE_FREQUENT_ALEATORY_LIST}).get();
 		Intent intent = new Intent(context,TicketActivity.class);
 			intent.putExtra("ticket", ticket);
-			intent.putExtra("selectedAction",R.id.button_generate_aleatory_frequent_list);
+			intent.putExtra("selectedAction",DataGenerate.GENERATE_FREQUENT_ALEATORY_LIST);
 		context.startActivity(intent);
 	}
 

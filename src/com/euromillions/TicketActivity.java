@@ -1,11 +1,14 @@
 package com.euromillions;
 
+import java.util.concurrent.ExecutionException;
+
 import com.euromillions.actions.DataGenerate;
 import com.euromillions.beans.Number;
 import com.euromillions.beans.Ticket;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import android.hardware.SensorManager;
 
 public class TicketActivity extends Activity implements SensorEventListener{
 	
+	private static final String TAG = "TicketActivity:";
 	
 	// For shake motion detection.
 	private static final int TIME_THRESHOLD = 100;
@@ -40,7 +44,7 @@ public class TicketActivity extends Activity implements SensorEventListener{
     
     private int selectedAction = 0; 
 	
-    private Ticket ticket;
+    
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,6 @@ public class TicketActivity extends Activity implements SensorEventListener{
 		Ticket ticket = (Ticket)extras.get("ticket");
 		selectedAction = extras.getInt("selectedAction");
 		
-		this.ticket = ticket;
 		fillBalls(ticket.getNumbers());
 		fillStars(ticket.getStars());
 		
@@ -101,24 +104,23 @@ public class TicketActivity extends Activity implements SensorEventListener{
 						mLastShake = now;
 						mShakeCount = 0;
 						//Toast.makeText(getApplicationContext(), "Shake!!!", Toast.LENGTH_SHORT).show();
+						try {
+							Ticket ticket = new DataGenerate(getApplicationContext()).execute(new Integer[]{this.selectedAction}).get();
+							repaintTicket(ticket);
+						} catch (InterruptedException e) {
+							Log.e(TAG, e.getMessage(), e);
+							//ALERT
+						} catch (ExecutionException e) {
+							Log.e(TAG, e.getMessage(), e);
+							//ALERT
+						}
 						
-						ticket.getNumbers()[0] = new Number(100, 31);
-						fillBalls(ticket.getNumbers());
-						ticket.getStars()[0] = new Number(100, 10);
-						fillStars(ticket.getStars());
-						View view = getWindow().getDecorView();
-						view.invalidate();
-						view.refreshDrawableState();
 						
 					}
 					mLastForce = now;
 				}
 				mLastTime = now;
 				
-				
-		 
-				
-		
 				last_x = x;
 				last_y = y;
 				last_z = z;
@@ -126,6 +128,14 @@ public class TicketActivity extends Activity implements SensorEventListener{
 		}
 	}
 	
+	
+	private void repaintTicket(Ticket ticket){
+		fillBalls(ticket.getNumbers());
+		fillStars(ticket.getStars());
+		View view = getWindow().getDecorView();
+		view.invalidate();
+		view.refreshDrawableState();
+	}
 	
 	private void fillBalls(Number[] balls){
 		
