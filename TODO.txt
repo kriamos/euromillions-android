@@ -1,0 +1,8 @@
+-shake to new ticket
+-Autoupdate
+-gen aleatory numbers
+-ticket save
+-history
+-last winner ticket
+-check your tickets prices
+-how many aleatory numbers to generate ticket

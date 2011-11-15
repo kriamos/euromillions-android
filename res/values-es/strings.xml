@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+    <string name="app_name">Euromillones Android</string>
+    
+    <string name="update_statistics">Actualizar estadísticas</string>
+    <string name="generate_ticket">Generar boleto</string>
+    <string name="goto_main">Ir al menú</string>
+        
+    <string name="table_rowheader_numbers">FRECUENCIA DE NÚMEROS</string>
+    <string name="table_rowheader_starts">FRECUENCIA DE ESTRELLAS</string>
+    <string name="table_rowsubheader_numbers_number">NUMERO</string>
+    <string name="table_rowsubheader_numbers_times">VECES</string>
+    <string name="table_rowsubheader_starts_number">ESTRELLA</string>
+    <string name="table_rowsubheader_starts_times">VECES</string>
+    
+    <string name="update_ok">Se han actualizado las estadísticas</string>
+	<string name="network_error">No se dispone de conexión a la red</string>
+	
+</resources>

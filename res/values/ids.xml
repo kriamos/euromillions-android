@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- id's which will be in R.id and you'll use later -->
+  
+  <item type="id" name="button_refresh"/>
+  <item type="id" name="button_euromillon"/>
+    
+   <item type="id" name="button_frequent_list"/>
+   <item type="id" name="button_generate_frequent_list"/>
+   <item type="id" name="button_generate_aleatory_frequent_list"/>
+  
+</resources>

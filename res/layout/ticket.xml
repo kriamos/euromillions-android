@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical" 
+    android:background="#DCDCDC">
+	
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:gravity="center_horizontal">
+	    
+	    <TextView  android:background="@drawable/ball" android:id="@+id/ball1" 
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    <TextView  android:background="@drawable/ball" android:id="@+id/ball2"
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    <TextView  android:background="@drawable/ball" android:id="@+id/ball3"
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    
+	 </LinearLayout>
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:gravity="center_horizontal">
+	    
+	    <TextView  android:background="@drawable/ball" android:id="@+id/ball4"
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    <TextView  android:background="@drawable/ball" android:id="@+id/ball5"
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    
+	 </LinearLayout>
+	 
+	 <LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" 
+	    android:gravity="center_horizontal">
+	    
+	    <TextView  android:background="@drawable/star" android:id="@+id/star1"
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    <TextView  android:background="@drawable/star" android:id="@+id/star2"
+	        android:layout_width="wrap_content" android:layout_height="wrap_content"
+	        android:gravity="center" android:textColor="@android:color/black"/>
+	    
+	 </LinearLayout>
+        
+    
+
+</LinearLayout>

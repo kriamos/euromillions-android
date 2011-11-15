@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Euromillions!</string>
+    <string name="app_name">Euromillions Android</string>
+    
+    <string name="update_statistics">Update statistics</string>
+    <string name="generate_ticket">Generate ticket</string>
+    <string name="goto_main">Go to main menu</string>
+    
+    <string name="button_refresh">button_refresh</string>
+    <string name="button_euromillon">button_euromillon</string>
+    
+    <string name="button_frequent_list">button_frequent_list</string>
+    <string name="button_generate_frequent_list">button_generate_frequent_list</string>
+    <string name="button_generate_frequent_aleatory_list">button_generate_aleatory_frequent_list</string>
+        
+    <string name="table_rowheader_numbers">NUMBERS FREQUENCY</string>
+    <string name="table_rowheader_starts">STARTS FREQUENCY</string>
+    <string name="table_rowsubheader_numbers_number">NUMBER</string>
+    <string name="table_rowsubheader_numbers_times">TIMES</string>
+    <string name="table_rowsubheader_starts_number">NUMBER</string>
+    <string name="table_rowsubheader_starts_times">TIMES</string>
+    
+   
+    <string name="update_ok">The statistics has been updated</string>
+	<string name="network_error">No internet connection</string>
+	
+	
+    
+</resources>
