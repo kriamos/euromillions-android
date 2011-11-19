@@ -58,28 +58,6 @@ public class DataGenerate extends AsyncTask<Integer, Void, Ticket>{
 	
 	@Override
 	protected void onPostExecute(Ticket result) {}
-	/*	Intent intent = getIntentForIndicatedActivity();
-		intent.putExtra("ticket", result);
-		intent.putExtra("selectedAction", this.selectedAction);
-		context.startActivity(intent);
-	}
-	
-	
-	private Intent getIntentForIndicatedActivity(){
-		Intent intent = null;
-		switch(selectedAction){
-			case DataGenerate.SHOW_FREQUENT_LIST:
-				intent = new Intent(context,NumberListActivity.class);
-				break;
-			case DataGenerate.GENERATE_FREQUENT_LIST:
-				intent = new Intent(context,TicketActivity.class);
-				break;
-			case DataGenerate.GENERATE_FREQUENT_ALEATORY_LIST:
-				intent = new Intent(context,TicketActivity.class);
-				break;
-		}
-		return intent;
-	}*/
 	
 	private Ticket doAction() throws IOException, NumberFormatException{
 		Number[] numbers =  readNumbersFromProperties(
