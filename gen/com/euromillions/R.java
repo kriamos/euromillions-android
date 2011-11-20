@@ -60,14 +60,16 @@ public final class R {
         public static final int generate_ticket=0x7f060003;
         public static final int goto_main=0x7f060004;
         public static final int hello=0x7f060000;
-        public static final int network_error=0x7f060011;
+        public static final int network_error=0x7f060013;
         public static final int table_rowheader_numbers=0x7f06000a;
         public static final int table_rowheader_starts=0x7f06000b;
         public static final int table_rowsubheader_numbers_number=0x7f06000c;
         public static final int table_rowsubheader_numbers_times=0x7f06000d;
         public static final int table_rowsubheader_starts_number=0x7f06000e;
         public static final int table_rowsubheader_starts_times=0x7f06000f;
+        public static final int update_not_required=0x7f060011;
         public static final int update_ok=0x7f060010;
+        public static final int update_page_not_done=0x7f060012;
         public static final int update_statistics=0x7f060002;
     }
 }

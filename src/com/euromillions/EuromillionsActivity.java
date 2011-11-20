@@ -1,10 +1,14 @@
 package com.euromillions;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.GridView;
 
+import com.euromillions.actions.DataUpdate;
 import com.euromillions.adapters.MenuImageButtonAdapter;
+import com.euromillions.application.EuromillionsApplication;
 
 public class EuromillionsActivity extends Activity {
 	
@@ -27,10 +31,20 @@ public class EuromillionsActivity extends Activity {
     	super.onCreate(savedInstanceState);
         
     	setContentView(R.layout.main);       
+   
+    	checkStartActions();
     	
     	GridView gridMenu = (GridView) findViewById(R.id.grid_menu);
     	gridMenu.setAdapter(new MenuImageButtonAdapter(this,imageButtons,imageButtonsIds));
         
+    }
+    
+    
+    private void checkStartActions(){
+    	if(EuromillionsApplication.getSharedPropertyValueAsBoolean("dataupdate.autoupdate")){
+    		new DataUpdate(getApplicationContext()).execute("");
+    	}
+    	
     }
     
   

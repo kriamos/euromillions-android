@@ -15,6 +15,7 @@ import java.text.ParseException;
 
 import com.euromillions.R;
 import com.euromillions.application.EuromillionsApplication;
+import com.euromillions.exceptions.DataNotUpdatableException;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -27,10 +28,10 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 
 	private static final String TAG = "DataStatistic";
 	
-	private final String LITERAL_BUSCAR_TABLA_INICIO = "<table";
-	private final String LITERAL_BUSCAR_TABLA_FIN = "</table";
-	private final String LITERAL_BUSCAR_TD_INICIO = "<td";
-	private final String LITERAL_BUSCAR_FECHA_ACTUALIZACION = "resultado del dia"; 
+	private final String LITERAL_SEARCH_TABLE_START = "<table";
+	private final String LITERAL_SEARCH_TABLE_END = "</table";
+	private final String LITERAL_SEARCH_TD_START = "<td";
+	private final String LITERAL_SEARCH_UPDATE_DATE = "resultado del dia"; 
 	
 	
 	private Properties propertiesFile = null;
@@ -45,9 +46,11 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	
 	@Override
 	protected String doInBackground(String... params) {
-		String result = context.getString(R.string.update_ok);
-		if(!checkInternetConnetion() || !updateData()){
-			result = context.getString(R.string.network_error);
+		String result = "";
+		if(!isNecesaryUpdateStatistics()){
+			result = context.getString(R.string.update_not_required);
+		}else{
+			result = startUpdateProcess();
 		}
 		return result;
 	}
@@ -57,11 +60,32 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		Toast.makeText(this.context, result, Toast.LENGTH_LONG).show();
 	}
 	
-
-	private boolean checkInternetConnetion() {
-		ConnectivityManager connectivityManager =  (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-		return !(networkInfo==null || !networkInfo.isConnected() || !networkInfo.isAvailable());
+	private String startUpdateProcess(){
+		String result = context.getString(R.string.update_ok);
+		try{
+		//Toast.makeText(this.context, R.string.update_statistics, Toast.LENGTH_LONG).show();
+			if(!checkInternetConnetion() ){
+				result = context.getString(R.string.network_error);
+			}
+			updateData();
+		} catch(MalformedURLException e){
+			e.printStackTrace();
+			Log.e(TAG,e.getMessage(),e);
+			result = context.getString(R.string.network_error); 
+		}catch (IOException e) {
+			e.printStackTrace();
+			Log.e(TAG,e.getMessage(),e);
+			result = context.getString(R.string.network_error);
+		}catch(ParseException e){
+			e.printStackTrace();
+			Log.e(TAG,e.getMessage(),e);
+			result = context.getString(R.string.network_error);
+		}catch(DataNotUpdatableException e){
+			e.printStackTrace();
+			Log.e(TAG,e.getMessage(),e);
+			result = context.getString(R.string.update_page_not_done);
+		}
+		return result;
 	}
 	
 	private boolean isNecesaryUpdateStatistics(){
@@ -70,35 +94,26 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		return actualDate>nextupdatedate;
 	}
 	
+
+	private boolean checkInternetConnetion() {
+		ConnectivityManager connectivityManager =  (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		return !(networkInfo==null || !networkInfo.isConnected() || !networkInfo.isAvailable());
+	}
 	
-	public boolean updateData()
+	public void updateData() throws MalformedURLException, IOException, ParseException, DataNotUpdatableException
 	{	
-		boolean updatedData = false;
-		 try {
-			 if(isNecesaryUpdateStatistics()){
-				findData(EuromillionsApplication.getSharedPropertyValue("dataupdate.urlNumbers"),
-						EuromillionsApplication.getSharedPropertyValue("nameFileNumbers"),
-						EuromillionsApplication.getSharedPropertyValue("titleFileNumbers"));
-				findData(EuromillionsApplication.getSharedPropertyValue("dataupdate.ulrStars"),
-						EuromillionsApplication.getSharedPropertyValue("nameFileStars"),
-						EuromillionsApplication.getSharedPropertyValue("titleFileStars"));
-			 }
-			updatedData = true;
-		} catch(MalformedURLException e){
-			e.printStackTrace();
-			Log.e(TAG,e.getMessage(),e);
-		}catch (IOException e) {
-			e.printStackTrace();
-			Log.e(TAG,e.getMessage(),e);
-		}catch(ParseException e){
-			e.printStackTrace();
-			Log.e(TAG,e.getMessage(),e);
-		}
-		return updatedData;
+		findData(EuromillionsApplication.getSharedPropertyValue("dataupdate.urlNumbers"),
+				EuromillionsApplication.getSharedPropertyValue("nameFileNumbers"),
+				EuromillionsApplication.getSharedPropertyValue("titleFileNumbers"));
+		findData(EuromillionsApplication.getSharedPropertyValue("dataupdate.ulrStars"),
+				EuromillionsApplication.getSharedPropertyValue("nameFileStars"),
+				EuromillionsApplication.getSharedPropertyValue("titleFileStars"));
 	}
 	
 	
-	private void findData(String urlToConnect, String targetFileName, String titleFile) throws MalformedURLException, IOException, ParseException{
+	private void findData(String urlToConnect, String targetFileName, String titleFile) throws MalformedURLException, 
+		IOException, ParseException, DataNotUpdatableException{
 			this.openConnectedBufferedReader(urlToConnect);
 			this.readDataIntoPropertiesFile();
 			this.savePropertiesFileToFile(titleFile, targetFileName);
@@ -110,24 +125,28 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		this.loadUrlConnectedBufferedReader(urlConnection);
 	}
 	
-	private void readDataIntoPropertiesFile() throws IOException, ParseException{
+	private void readDataIntoPropertiesFile() throws IOException, ParseException, DataNotUpdatableException{
 		this.propertiesFile = new Properties();
 		String  inputLine;
 		while ((inputLine = this.urlConnectedBufferedReader.readLine()) != null){
-			if(inputLine.indexOf(LITERAL_BUSCAR_TABLA_INICIO)>0){
+			if(inputLine.indexOf(LITERAL_SEARCH_TABLE_START)>0){
 			  this.readTdNumbers();
 			  if(!isNecesaryUpdateStatistics()){ break;}
 			}
-			if(inputLine.indexOf(LITERAL_BUSCAR_FECHA_ACTUALIZACION)>0){
+			if(inputLine.indexOf(LITERAL_SEARCH_UPDATE_DATE)>0){
 				updateDateStatisticsUpdate(inputLine);
 			}
 		}
 	}
 	
-	private void updateDateStatisticsUpdate(String lineDate) throws ParseException{
+	private void updateDateStatisticsUpdate(String lineDate) throws ParseException, DataNotUpdatableException{
 		String date = getDateFromLineDate(lineDate);
 		long upatedDateInMilliseconds = getDateInMilliseconds(date);
 		long nextUpdateDate = getNextUpdateDate(upatedDateInMilliseconds);
+		long actualData = System.currentTimeMillis();
+		if(nextUpdateDate<actualData){
+			throw new DataNotUpdatableException();
+		}
 		EuromillionsApplication.setSharedPropertyValue("dataupdate.nextupdatedate",String.valueOf(nextUpdateDate));
 	}
 	
@@ -162,7 +181,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		String dataLine, number="0";
 		int tdNumber=0; 
 		while ((dataLine = this.urlConnectedBufferedReader.readLine()) != null){
-			if(dataLine.indexOf(LITERAL_BUSCAR_TD_INICIO) > 0){
+			if(dataLine.indexOf(LITERAL_SEARCH_TD_START) > 0){
 				if(tdNumber == 0){ //read number
 				  dataLine = this.urlConnectedBufferedReader.readLine();
 				  dataLine = dataLine.trim().equals("")?this.urlConnectedBufferedReader.readLine():dataLine;
@@ -174,7 +193,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 				}
 				tdNumber++; 
 				if(tdNumber == 4){tdNumber=0;}
-			}else if(dataLine.indexOf(LITERAL_BUSCAR_TABLA_FIN)>0){
+			}else if(dataLine.indexOf(LITERAL_SEARCH_TABLE_END)>0){
 				break;
 			}
 		}

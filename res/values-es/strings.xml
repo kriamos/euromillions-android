@@ -15,6 +15,8 @@
     <string name="table_rowsubheader_starts_times">VECES</string>
     
     <string name="update_ok">Se han actualizado las estadísticas</string>
+    <string name="update_not_required">Las estadísticas están actualizadas.</string>
+    <string name="update_page_not_done">Las estadísticas aún no han sido actualizadas.</string>
 	<string name="network_error">No se dispone de conexión a la red</string>
 	
 </resources>

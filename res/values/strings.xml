@@ -23,7 +23,9 @@
     
    
     <string name="update_ok">The statistics has been updated</string>
-	<string name="network_error">No internet connection</string>
+    <string name="update_not_required">The statistics are up to date</string>
+    <string name="update_page_not_done">The statistics have not yet been updated.</string>
+	<string name="network_error">No network connection</string>
 	
 	
     

@@ -1,4 +1,3 @@
--shake to new ticket
 -Autoupdate
 -gen aleatory numbers
 -ticket save
