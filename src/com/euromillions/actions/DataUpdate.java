@@ -33,15 +33,25 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	private final String LITERAL_SEARCH_TD_START = "<td";
 	private final String LITERAL_SEARCH_UPDATE_DATE = "resultado del dia"; 
 	
+	private final String PROPERTY_NEXT_UPDATE_DATA = "dataupdate.nextupdatedate";
 	
 	private Properties propertiesFile = null;
 	private BufferedReader urlConnectedBufferedReader = null;
 	
 	private Context context;
 	
+	private boolean fileSaved = false;
+	
+	private boolean autoUpdate = false;
+	private boolean showMessage = true;
 	
 	public DataUpdate(Context context) {
 		this.context = context;
+	}
+	
+	public DataUpdate(Context context, boolean autoUpdate) {
+		this.context = context;
+		this.autoUpdate = autoUpdate;
 	}
 	
 	@Override
@@ -49,6 +59,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		String result = "";
 		if(!isNecesaryUpdateStatistics()){
 			result = context.getString(R.string.update_not_required);
+			showMessage = false;
 		}else{
 			result = startUpdateProcess();
 		}
@@ -57,7 +68,12 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	
 	@Override
 	protected void onPostExecute(String result) {
-		Toast.makeText(this.context, result, Toast.LENGTH_LONG).show();
+		if(!autoUpdate){
+			showMessage = true;
+		}
+		if(showMessage){
+			Toast.makeText(this.context, result, Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	private String startUpdateProcess(){
@@ -65,31 +81,35 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		try{
 		//Toast.makeText(this.context, R.string.update_statistics, Toast.LENGTH_LONG).show();
 			if(!checkInternetConnetion() ){
-				result = context.getString(R.string.network_error);
+				throw new IOException();
 			}
 			updateData();
 		} catch(MalformedURLException e){
 			e.printStackTrace();
 			Log.e(TAG,e.getMessage(),e);
-			result = context.getString(R.string.network_error); 
+			result = context.getString(R.string.network_error);
+			this.showMessage = false;
 		}catch (IOException e) {
 			e.printStackTrace();
 			Log.e(TAG,e.getMessage(),e);
 			result = context.getString(R.string.network_error);
+			this.showMessage = false;
 		}catch(ParseException e){
 			e.printStackTrace();
 			Log.e(TAG,e.getMessage(),e);
 			result = context.getString(R.string.network_error);
+			this.showMessage = false;
 		}catch(DataNotUpdatableException e){
 			e.printStackTrace();
 			Log.e(TAG,e.getMessage(),e);
 			result = context.getString(R.string.update_page_not_done);
+			this.showMessage = false;
 		}
 		return result;
 	}
 	
 	private boolean isNecesaryUpdateStatistics(){
-		long nextupdatedate = EuromillionsApplication.getSharedPropertyValueAsLong("dataupdate.nextupdatedate");
+		long nextupdatedate = EuromillionsApplication.getSharedPropertyValueAsLong(PROPERTY_NEXT_UPDATE_DATA);
 		long actualDate = System.currentTimeMillis();
 		return actualDate>nextupdatedate;
 	}
@@ -116,7 +136,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		IOException, ParseException, DataNotUpdatableException{
 			this.openConnectedBufferedReader(urlToConnect);
 			this.readDataIntoPropertiesFile();
-			this.savePropertiesFileToFile(titleFile, targetFileName);
+			if(!fileSaved) {this.savePropertiesFileToFile(titleFile, targetFileName);}
 	}
 	
 	private void openConnectedBufferedReader(String urlToConnect) throws MalformedURLException,IOException{
@@ -147,7 +167,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		if(nextUpdateDate<actualData){
 			throw new DataNotUpdatableException();
 		}
-		EuromillionsApplication.setSharedPropertyValue("dataupdate.nextupdatedate",String.valueOf(nextUpdateDate));
+		EuromillionsApplication.setSharedPropertyValue(PROPERTY_NEXT_UPDATE_DATA,String.valueOf(nextUpdateDate));
 	}
 	
 	private String getDateFromLineDate(String lineDate){
@@ -218,6 +238,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		 FileOutputStream fout =  this.context.openFileOutput(fileName, Context.MODE_PRIVATE);
 	     this.propertiesFile.store(fout,title);
 	     fout.close();
+	     fileSaved = true;
 	}
 
 }

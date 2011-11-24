@@ -37,6 +37,8 @@ public final class R {
         public static final int grid_number_generate=0x7f050005;
         public static final int number_list_layout=0x7f050007;
         public static final int numbers_table_layout=0x7f050009;
+        public static final int principal_menu_help=0x7f050012;
+        public static final int principal_menu_settings=0x7f050011;
         public static final int scroll_linear_list_layout=0x7f050008;
         public static final int star1=0x7f05000f;
         public static final int star2=0x7f050010;
@@ -46,6 +48,9 @@ public final class R {
         public static final int main=0x7f030001;
         public static final int number_list=0x7f030002;
         public static final int ticket=0x7f030003;
+    }
+    public static final class menu {
+        public static final int principal_menu=0x7f070000;
     }
     public static final class raw {
         public static final int euromillions=0x7f040000;
@@ -61,6 +66,8 @@ public final class R {
         public static final int goto_main=0x7f060004;
         public static final int hello=0x7f060000;
         public static final int network_error=0x7f060013;
+        public static final int principal_menu_help=0x7f060015;
+        public static final int principal_menu_settings=0x7f060014;
         public static final int table_rowheader_numbers=0x7f06000a;
         public static final int table_rowheader_starts=0x7f06000b;
         public static final int table_rowsubheader_numbers_number=0x7f06000c;

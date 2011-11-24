@@ -19,4 +19,7 @@
     <string name="update_page_not_done">Las estadísticas aún no han sido actualizadas.</string>
 	<string name="network_error">No se dispone de conexión a la red</string>
 	
+	<string name="principal_menu_settings">Configuración</string>
+	<string name="principal_menu_help">Ayuda</string>    
+	   
 </resources>
