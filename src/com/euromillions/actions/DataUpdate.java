@@ -15,6 +15,7 @@ import java.text.ParseException;
 
 import com.euromillions.R;
 import com.euromillions.application.EuromillionsApplication;
+import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
 import com.euromillions.exceptions.DataNotUpdatableException;
 
 import android.content.Context;
@@ -33,7 +34,6 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	private final String LITERAL_SEARCH_TD_START = "<td";
 	private final String LITERAL_SEARCH_UPDATE_DATE = "resultado del dia"; 
 	
-	private final String PROPERTY_NEXT_UPDATE_DATA = "dataupdate.nextupdatedate";
 	
 	private Properties propertiesFile = null;
 	private BufferedReader urlConnectedBufferedReader = null;
@@ -109,7 +109,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	}
 	
 	private boolean isNecesaryUpdateStatistics(){
-		long nextupdatedate = EuromillionsApplication.getSharedPropertyValueAsLong(PROPERTY_NEXT_UPDATE_DATA);
+		long nextupdatedate = EuromillionsApplication.getSharedPropertyValueAsLong(SHARED_PROPERTIES.DATAUPDATE_NEXT_UPDATE_DATE);
 		long actualDate = System.currentTimeMillis();
 		return actualDate>nextupdatedate;
 	}
@@ -123,12 +123,12 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	
 	public void updateData() throws MalformedURLException, IOException, ParseException, DataNotUpdatableException
 	{	
-		findData(EuromillionsApplication.getSharedPropertyValue("dataupdate.urlNumbers"),
-				EuromillionsApplication.getSharedPropertyValue("nameFileNumbers"),
-				EuromillionsApplication.getSharedPropertyValue("titleFileNumbers"));
-		findData(EuromillionsApplication.getSharedPropertyValue("dataupdate.ulrStars"),
-				EuromillionsApplication.getSharedPropertyValue("nameFileStars"),
-				EuromillionsApplication.getSharedPropertyValue("titleFileStars"));
+		findData(EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.DATAUPDATE_URL_NUMBERS),
+				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.NAME_FILE_NUMBERS),
+				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.TITLE_FILE_NUMBERS));
+		findData(EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.DATAUPDATE_URL_STARS),
+				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.NAME_FILE_STARS),
+				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.TITLE_FILE_STARS));
 	}
 	
 	
@@ -167,7 +167,8 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		if(nextUpdateDate<actualData){
 			throw new DataNotUpdatableException();
 		}
-		EuromillionsApplication.setSharedPropertyValue(PROPERTY_NEXT_UPDATE_DATA,String.valueOf(nextUpdateDate));
+		EuromillionsApplication.setSharedPropertyValue(
+				SHARED_PROPERTIES.DATAUPDATE_NEXT_UPDATE_DATE,String.valueOf(nextUpdateDate));
 	}
 	
 	private String getDateFromLineDate(String lineDate){

@@ -3,6 +3,7 @@ package com.euromillions;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.euromillions.actions.DataUpdate;
 import com.euromillions.adapters.MenuImageButtonAdapter;
 import com.euromillions.application.EuromillionsApplication;
+import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
 
 public class EuromillionsActivity extends Activity {
 	
@@ -35,6 +37,7 @@ public class EuromillionsActivity extends Activity {
     	super.onCreate(savedInstanceState);
         
     	setContentView(R.layout.main);       
+    	
     	
 //    	try {
 //			EuromillionsApplication.resetProperties();
@@ -61,7 +64,8 @@ public class EuromillionsActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
 			case R.id.principal_menu_settings:
-				Toast.makeText(getApplicationContext(),"Settings", Toast.LENGTH_SHORT).show();
+				Intent settings = new Intent(getApplicationContext(), SettingsActivity.class);
+				startActivity(settings);
 				break;
 			case R.id.principal_menu_help:
 				Toast.makeText(getApplicationContext(),"Help", Toast.LENGTH_SHORT).show();
@@ -71,7 +75,7 @@ public class EuromillionsActivity extends Activity {
     }
     
     private void checkStartActions(){
-    	if(EuromillionsApplication.getSharedPropertyValueAsBoolean("dataupdate.autoupdate")){
+    	if(EuromillionsApplication.getSharedPropertyValueAsBoolean(SHARED_PROPERTIES.DATAUPDATE_AUTOUPDATE)){
     		new DataUpdate(getApplicationContext(),true).execute("");
     	}
     	

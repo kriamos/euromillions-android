@@ -16,6 +16,7 @@ import com.euromillions.TicketActivity;
 import com.euromillions.beans.Number;
 import com.euromillions.beans.Ticket;
 import com.euromillions.application.EuromillionsApplication;
+import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
 
 public class DataGenerate extends AsyncTask<Integer, Void, Ticket>{
 	
@@ -61,10 +62,10 @@ public class DataGenerate extends AsyncTask<Integer, Void, Ticket>{
 	
 	private Ticket doAction() throws IOException, NumberFormatException{
 		Number[] numbers =  readNumbersFromProperties(
-			EuromillionsApplication.getSharedPropertyValue("nameFileNumbers"), 
+			EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.NAME_FILE_NUMBERS), 
 			MAX_NUMBERS_SIZE);
 		Number[] stars =  readNumbersFromProperties( 
-			EuromillionsApplication.getSharedPropertyValue("nameFileStars"),
+			EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.NAME_FILE_STARS),
 			MAX_STARS_SIZE);
 		switch(selectedAction){
 			case DataGenerate.SHOW_FREQUENT_LIST:

@@ -24,6 +24,7 @@
         <activity android:name=".GenerateActivity" ></activity>
         <activity android:name=".NumberListActivity" ></activity>
         <activity android:name=".TicketActivity" ></activity>
+        <activity android:name=".SettingsActivity" ></activity>
     </application>
 
 </manifest>

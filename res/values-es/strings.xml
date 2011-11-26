@@ -21,5 +21,7 @@
 	
 	<string name="principal_menu_settings">Configuración</string>
 	<string name="principal_menu_help">Ayuda</string>    
+	
+	<string name="settings_check_autoupdate">Actualizar estadísticas automáticamente</string>
 	   
 </resources>
