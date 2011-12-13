@@ -6,7 +6,8 @@
   <item type="id" name="button_euromillon"/>
     
    <item type="id" name="button_frequent_list"/>
-   <item type="id" name="button_generate_frequent_list"/>
-   <item type="id" name="button_generate_aleatory_frequent_list"/>
+   <item type="id" name="button_ticket_frequent_list"/>
+   <item type="id" name="button_ticket_aleatory_frequent_list"/>
+   <item type="id" name="button_ticket_aleatory_list"/>
   
 </resources>
