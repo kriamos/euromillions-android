@@ -18,7 +18,7 @@
     <string name="table_rowheader_starts">STARTS FREQUENCY</string>
     <string name="table_rowsubheader_numbers_number">NUMBER</string>
     <string name="table_rowsubheader_numbers_times">TIMES</string>
-    <string name="table_rowsubheader_starts_number">NUMBER</string>
+    <string name="table_rowsubheader_starts_number">STAR</string>
     <string name="table_rowsubheader_starts_times">TIMES</string>
     
    
@@ -33,5 +33,6 @@
 	
 	<string name="settings_check_autoupdate">Auto update statistics</string> 
 	
+	<string name="main_date_update">Last update date: </string>
     
 </resources>
