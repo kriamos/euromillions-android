@@ -2,21 +2,19 @@ package com.euromillions;
 
 import java.util.concurrent.ExecutionException;
 
-import com.euromillions.actions.DataGenerate;
-import com.euromillions.beans.Number;
-import com.euromillions.beans.Ticket;
-
 import android.app.Activity;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
-import android.hardware.SensorManager;
+
+import com.euromillions.actions.DataGenerate;
+import com.euromillions.beans.Number;
+import com.euromillions.beans.Ticket;
 
 public class TicketActivity extends Activity implements SensorEventListener{
 	

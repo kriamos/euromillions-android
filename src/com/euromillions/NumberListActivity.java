@@ -1,6 +1,8 @@
 package com.euromillions;
 
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +12,10 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.euromillions.application.EuromillionsApplication;
+import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
 import com.euromillions.beans.Number;
 import com.euromillions.beans.Ticket;
 
@@ -29,6 +34,10 @@ public class NumberListActivity extends Activity {
 		Ticket ticket = (Ticket)o;
 		
 		Context context = getApplicationContext();
+		
+		TextView textLastUpdateDate = (TextView)findViewById(R.id.number_list_last_update_date);
+		showLastUpdateDate(textLastUpdateDate);
+		
 		
 		TableLayout table = (TableLayout)findViewById(R.id.numbers_table_layout);
 		
@@ -66,7 +75,24 @@ public class NumberListActivity extends Activity {
         
         addTableRows(tableStarts, ticket.getStarts());*/
         
+        
+        
 	}
+	
+	
+
+    private void showLastUpdateDate(TextView textFooter){
+    	long date = EuromillionsApplication.getSharedPropertyValueAsLong(
+				SHARED_PROPERTIES.DATAUPDATE_LAST_UPDATE_DATE);
+    	if(date!=0){
+	    	Calendar c = Calendar.getInstance();
+			c.setTimeInMillis(date);
+			String lastUpdate = c.get(Calendar.DAY_OF_MONTH)+"/"+
+					(c.get(Calendar.MONTH)+1)+"/"+
+					c.get(Calendar.YEAR);
+			textFooter.setText(getApplicationContext().getString(R.string.main_date_update)+" "+lastUpdate);
+    	}
+    }
 	
 	
 	private void addTableRows(TableLayout table, Number[] numbers, Number[] stars){

@@ -1,11 +1,11 @@
 package com.euromillions;
 
-import com.euromillions.application.EuromillionsApplication;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+
+import com.euromillions.application.EuromillionsApplication;
 
 public class SettingsActivity extends Activity{
 	

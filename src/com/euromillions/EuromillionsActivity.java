@@ -1,7 +1,5 @@
 package com.euromillions;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.euromillions.actions.DataUpdate;
@@ -38,19 +37,20 @@ public class EuromillionsActivity extends Activity {
         
     	setContentView(R.layout.main);       
     	
+    	/*
+    	try {
+			EuromillionsApplication.resetProperties();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
     	
-//    	try {
-//			EuromillionsApplication.resetProperties();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-    	checkStartActions();
+		checkStartActions();
     	
     	GridView gridMenu = (GridView) findViewById(R.id.grid_menu);
     	gridMenu.setAdapter(new MenuImageButtonAdapter(this,imageButtons,imageButtonsIds));
         
     }
+    
     
     
     @Override
@@ -76,7 +76,7 @@ public class EuromillionsActivity extends Activity {
     
     private void checkStartActions(){
     	if(EuromillionsApplication.getSharedPropertyValueAsBoolean(SHARED_PROPERTIES.DATAUPDATE_AUTOUPDATE)){
-    		new DataUpdate(getApplicationContext(),true).execute("");
+			new DataUpdate(getApplicationContext(),true).execute("");
     	}
     	
     }
