@@ -7,23 +7,25 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Properties;
-import java.util.Calendar;
-import java.util.Locale;
 import java.text.DateFormat;
 import java.text.ParseException;
-
-import com.euromillions.R;
-import com.euromillions.application.EuromillionsApplication;
-import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
-import com.euromillions.exceptions.DataNotUpdatableException;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Properties;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.euromillions.R;
+import com.euromillions.application.EuromillionsApplication;
+import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
+import com.euromillions.exceptions.DataNotUpdatableException;
 
 public class DataUpdate extends AsyncTask<String, Void, String> { 
 
@@ -44,6 +46,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	
 	private boolean autoUpdate = false;
 	private boolean showMessage = true;
+	
 	
 	public DataUpdate(Context context) {
 		this.context = context;
@@ -74,6 +77,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		if(showMessage){
 			Toast.makeText(this.context, result, Toast.LENGTH_LONG).show();
 		}
+		
 	}
 	
 	private String startUpdateProcess(){
@@ -169,7 +173,12 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		}
 		EuromillionsApplication.setSharedPropertyValue(
 				SHARED_PROPERTIES.DATAUPDATE_NEXT_UPDATE_DATE,String.valueOf(nextUpdateDate));
+		EuromillionsApplication.setSharedPropertyValue(
+				SHARED_PROPERTIES.DATAUPDATE_LAST_UPDATE_DATE,String.valueOf(actualData));
+		
+		
 	}
+	
 	
 	private String getDateFromLineDate(String lineDate){
 		String[] splitted = lineDate.split(" ",0);
@@ -241,5 +250,5 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 	     fout.close();
 	     fileSaved = true;
 	}
-
+	
 }

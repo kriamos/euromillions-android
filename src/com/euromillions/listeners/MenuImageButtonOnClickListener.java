@@ -1,7 +1,5 @@
 package com.euromillions.listeners;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import android.content.Context;
@@ -34,10 +32,12 @@ public class MenuImageButtonOnClickListener implements OnClickListener {
 				actionEuromillon();
 			}else if(v.getId() == R.id.button_frequent_list){
 				actionShowFrequentList();
-			}else if(v.getId() == R.id.button_generate_frequent_list){
+			}else if(v.getId() == R.id.button_ticket_frequent_list){
 				actionGenerateFrequentList();
-			}else if(v.getId() == R.id.button_generate_aleatory_frequent_list){
+			}else if(v.getId() == R.id.button_ticket_aleatory_frequent_list){
 				actionGenerateFrequentAleattiryList();
+			}else if(v.getId() == R.id.button_ticket_aleatory_list){
+				actionGenerateAleattiryList();
 			}
 		} catch (InterruptedException e) {
 			Log.e(TAG, e.getMessage(),e);
@@ -78,6 +78,14 @@ public class MenuImageButtonOnClickListener implements OnClickListener {
 		Intent intent = new Intent(context,TicketActivity.class);
 			intent.putExtra("ticket", ticket);
 			intent.putExtra("selectedAction",DataGenerate.GENERATE_FREQUENT_ALEATORY_LIST);
+		context.startActivity(intent);
+	}
+	
+	private void actionGenerateAleattiryList()throws InterruptedException, ExecutionException{
+		Ticket ticket = new DataGenerate(context).execute(new Integer[]{DataGenerate.GENERATE_ALEATORY_LIST}).get();
+		Intent intent = new Intent(context,TicketActivity.class);
+			intent.putExtra("ticket", ticket);
+			intent.putExtra("selectedAction",DataGenerate.GENERATE_ALEATORY_LIST);
 		context.startActivity(intent);
 	}
 

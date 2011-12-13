@@ -1,14 +1,14 @@
 package com.euromillions.adapters;
 
 
-import com.euromillions.listeners.MenuImageButtonOnClickListener;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
+
+import com.euromillions.listeners.MenuImageButtonOnClickListener;
 
 public class MenuImageButtonAdapter extends BaseAdapter {
 	
@@ -48,9 +48,10 @@ public class MenuImageButtonAdapter extends BaseAdapter {
 		}else{
 			imageButton = (ImageButton)convertView;
 		}
-		imageButton.setImageResource(this.imageButtons[position]);
+		//imageButton.setImageResource(this.imageButtons[position]);
 		imageButton.setId(this.imageButtonsIds[position]);
 		imageButton.setOnClickListener(new MenuImageButtonOnClickListener());
+		imageButton.setBackgroundResource(this.imageButtons[position]);
 		return imageButton;
 	}
 

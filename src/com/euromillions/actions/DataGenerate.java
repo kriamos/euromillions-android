@@ -8,15 +8,12 @@ import java.util.Properties;
 import java.util.Random;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.euromillions.NumberListActivity;
-import com.euromillions.TicketActivity;
-import com.euromillions.beans.Number;
-import com.euromillions.beans.Ticket;
 import com.euromillions.application.EuromillionsApplication;
 import com.euromillions.application.EuromillionsApplication.SHARED_PROPERTIES;
+import com.euromillions.beans.Number;
+import com.euromillions.beans.Ticket;
 
 public class DataGenerate extends AsyncTask<Integer, Void, Ticket>{
 	
@@ -36,8 +33,7 @@ public class DataGenerate extends AsyncTask<Integer, Void, Ticket>{
 	
 	private int selectedAction = 0;
 	
-	private int maxPositionOnArrayNumbers = 20;
-	private int maxPositionOnArrayStars = 11;
+	
 
 	public DataGenerate(Context context) {
 		this.context = context;
@@ -74,35 +70,63 @@ public class DataGenerate extends AsyncTask<Integer, Void, Ticket>{
 				return generateFrequentList(numbers,stars);
 			case DataGenerate.GENERATE_FREQUENT_ALEATORY_LIST:
 				return generateFrequentAleatoryList(numbers,stars);
+			case DataGenerate.GENERATE_ALEATORY_LIST:
+				return generateAleatoryList(numbers,stars);
 			default: return null;
 		}
 	}
 	
 	
-	private Ticket generateFrequentAleatoryList(Number[] numbers, Number[] stars){
+	private Ticket generateAleatoryList(Number[] numbers, Number[] stars){
+		int maxPositionOnArrayNumbers = MAX_NUMBERS_SIZE;
+		int maxPositionOnArrayStars = MAX_STARS_SIZE;
 		
-		Number[] generatedNumbers = new Number[MAX_GENERATED_NUMBERS_IN_TICKET];
-		Number[] generatedStars = new Number[MAX_GENERATED_STARS_IN_TICKET];
 		long seed = System.currentTimeMillis();
 		Random random = new Random(seed);
-		List<Integer> generatedList = new ArrayList<Integer>();
-		for(int generatedArrayPosition=0;generatedArrayPosition<MAX_GENERATED_NUMBERS_IN_TICKET;generatedArrayPosition++){
-			generatedNumbers[generatedArrayPosition] = numbers[generateNumber(random, this.maxPositionOnArrayNumbers,generatedList)];
-		}
-		generatedList.clear();
-		for(int generatedArrayPosition=0;generatedArrayPosition<MAX_GENERATED_STARS_IN_TICKET;generatedArrayPosition++){
-			generatedStars[generatedArrayPosition] = stars[generateNumber(random, this.maxPositionOnArrayStars,generatedList)];
-		}
+		
+		Number[] generatedNumbers = generateNumbersList(random, numbers, maxPositionOnArrayNumbers);
+		Number[] generatedStars = generateStarsList(random,stars,maxPositionOnArrayStars);
+		
+		return new Ticket(generatedNumbers, generatedStars);
+	}
+	
+	private Ticket generateFrequentAleatoryList(Number[] numbers, Number[] stars){
+		int maxPositionOnArrayNumbers = 20;
+		int maxPositionOnArrayStars = 11;
+		
+		long seed = System.currentTimeMillis();
+		Random random = new Random(seed);
+		
+		Number[] generatedNumbers = generateNumbersList(random, numbers, maxPositionOnArrayNumbers);
+		Number[] generatedStars = generateStarsList(random,stars,maxPositionOnArrayStars);
+		
 		return new Ticket(generatedNumbers,generatedStars);
 	}
 	
-	private int generateNumber(Random random,int maxNumber, List<Integer> generatedList)
-	  {
+	private Number[] generateNumbersList(Random random, Number[] totalNumbers, int maxPositionOnArrayNumbers){
+		Number[] generatedNumbers = new Number[MAX_GENERATED_NUMBERS_IN_TICKET];
+		List<Integer> generatedList = new ArrayList<Integer>();
+		for(int generatedArrayPosition=0;generatedArrayPosition<MAX_GENERATED_NUMBERS_IN_TICKET;generatedArrayPosition++){
+			generatedNumbers[generatedArrayPosition] = totalNumbers[generateNumber(random, maxPositionOnArrayNumbers,generatedList)];
+		}
+		return generatedNumbers;
+	}
+	
+	private Number[] generateStarsList(Random random, Number[] totalStars, int maxPositionOnArrayStars){
+		Number[] generatedStars = new Number[MAX_GENERATED_STARS_IN_TICKET];
+		List<Integer> generatedList = new ArrayList<Integer>();
+		for(int generatedArrayPosition=0;generatedArrayPosition<MAX_GENERATED_STARS_IN_TICKET;generatedArrayPosition++){
+			generatedStars[generatedArrayPosition] = totalStars[generateNumber(random, maxPositionOnArrayStars,generatedList)];
+		}
+		return generatedStars;
+	}
+	
+	private int generateNumber(Random random,int maxNumber, List<Integer> generatedList){
 	    int number = random.nextInt(maxNumber);
 	    while(number==0 || generatedList.contains(number)){number = random.nextInt(maxNumber);}
 	    generatedList.add(number);
 	    return number;
-	  }
+    }
 	
 	private Ticket generateFrequentList(Number[] numbers , Number[] stars){
 		Number[] generatedNumbers = new Number[MAX_GENERATED_NUMBERS_IN_TICKET];
