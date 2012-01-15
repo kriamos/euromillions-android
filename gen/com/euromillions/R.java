@@ -14,35 +14,41 @@ public final class R {
         public static final int ball=0x7f020000;
         public static final int euromillones=0x7f020001;
         public static final int frequent_list=0x7f020002;
-        public static final int generate_frequent_list=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int icon=0x7f020005;
-        public static final int refresh=0x7f020006;
-        public static final int star=0x7f020007;
+        public static final int ic_launcher=0x7f020003;
+        public static final int icon=0x7f020004;
+        public static final int refresh=0x7f020005;
+        public static final int star=0x7f020006;
+        public static final int ticket_aleatory_frequent_list=0x7f020007;
+        public static final int ticket_aleatory_list=0x7f020008;
+        public static final int ticket_frequent_list=0x7f020009;
     }
     public static final class id {
-        public static final int ball1=0x7f05000b;
-        public static final int ball2=0x7f05000c;
-        public static final int ball3=0x7f05000d;
-        public static final int ball4=0x7f05000e;
-        public static final int ball5=0x7f05000f;
+        public static final int ball1=0x7f05000e;
+        public static final int ball2=0x7f05000f;
+        public static final int ball3=0x7f050010;
+        public static final int ball4=0x7f050011;
+        public static final int ball5=0x7f050012;
+        public static final int bottom_control_bar=0x7f050007;
         public static final int button_euromillon=0x7f050001;
         public static final int button_frequent_list=0x7f050002;
-        public static final int button_generate_aleatory_frequent_list=0x7f050004;
-        public static final int button_generate_frequent_list=0x7f050003;
         /**  id's which will be in R.id and you'll use later 
          */
         public static final int button_refresh=0x7f050000;
-        public static final int grid_menu=0x7f050006;
-        public static final int grid_number_generate=0x7f050005;
-        public static final int number_list_layout=0x7f050008;
-        public static final int numbers_table_layout=0x7f05000a;
-        public static final int principal_menu_help=0x7f050013;
-        public static final int principal_menu_settings=0x7f050012;
-        public static final int scroll_linear_list_layout=0x7f050009;
-        public static final int settings_check_autoupdate=0x7f050007;
-        public static final int star1=0x7f050010;
-        public static final int star2=0x7f050011;
+        public static final int button_ticket_aleatory_frequent_list=0x7f050004;
+        public static final int button_ticket_aleatory_list=0x7f050005;
+        public static final int button_ticket_frequent_list=0x7f050003;
+        public static final int grid_menu=0x7f050008;
+        public static final int grid_number_generate=0x7f050006;
+        public static final int number_list_last_update_date=0x7f05000b;
+        public static final int number_list_layout=0x7f05000a;
+        public static final int numbers_table_layout=0x7f05000d;
+        public static final int principal_menu_help=0x7f050017;
+        public static final int principal_menu_resetProperties=0x7f050016;
+        public static final int principal_menu_settings=0x7f050015;
+        public static final int scroll_linear_list_layout=0x7f05000c;
+        public static final int settings_check_autoupdate=0x7f050009;
+        public static final int star1=0x7f050013;
+        public static final int star2=0x7f050014;
     }
     public static final class layout {
         public static final int generate=0x7f030000;
@@ -67,10 +73,14 @@ public final class R {
         public static final int generate_ticket=0x7f060003;
         public static final int goto_main=0x7f060004;
         public static final int hello=0x7f060000;
+        public static final int main_date_update=0x7f06001a;
         public static final int network_error=0x7f060013;
         public static final int principal_menu_help=0x7f060015;
+        public static final int principal_menu_resetPropeties=0x7f060016;
         public static final int principal_menu_settings=0x7f060014;
-        public static final int settings_check_autoupdate=0x7f060016;
+        public static final int resetProperties_error=0x7f060017;
+        public static final int resetProperties_ok=0x7f060018;
+        public static final int settings_check_autoupdate=0x7f060019;
         public static final int table_rowheader_numbers=0x7f06000a;
         public static final int table_rowheader_starts=0x7f06000b;
         public static final int table_rowsubheader_numbers_number=0x7f06000c;

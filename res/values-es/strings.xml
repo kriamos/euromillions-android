@@ -21,7 +21,11 @@
 	
 	<string name="principal_menu_settings">Configuración</string>
 	<string name="principal_menu_help">Ayuda</string>    
+	<string name="principal_menu_resetPropeties">Reestablecer propiedades originales de la aplicación</string>
 	
+	<string name="resetProperties.error">No se pueden reestablecer las popiedades originales de la aplicación</string>
+	<string name="resetProperties.ok">Las propiedades originales de la aplicación han sido reestablecidas</string>
+	    
 	<string name="settings_check_autoupdate">Actualizar estadísticas automáticamente</string>
 	
 	<string name="main_date_update">Fecha de última actualización:</string>

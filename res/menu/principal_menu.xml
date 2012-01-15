@@ -3,7 +3,9 @@
     <item android:id="@+id/principal_menu_settings"
         android:title="@string/principal_menu_settings" 
           />
-
+	<item android:id="@+id/principal_menu_resetProperties"
+        android:title="@string/principal_menu_resetPropeties" 
+          />
     <item android:id="@+id/principal_menu_help"
         android:title="@string/principal_menu_help" 
           />

@@ -130,6 +130,7 @@ public class DataUpdate extends AsyncTask<String, Void, String> {
 		findData(EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.DATAUPDATE_URL_NUMBERS),
 				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.NAME_FILE_NUMBERS),
 				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.TITLE_FILE_NUMBERS));
+		fileSaved = false;
 		findData(EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.DATAUPDATE_URL_STARS),
 				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.NAME_FILE_STARS),
 				EuromillionsApplication.getSharedPropertyValue(SHARED_PROPERTIES.TITLE_FILE_STARS));
