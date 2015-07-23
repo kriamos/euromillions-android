@@ -1,0 +1,1 @@
+Litlle android application to view euromillions statistics, generate differents type of tickets, etc..
